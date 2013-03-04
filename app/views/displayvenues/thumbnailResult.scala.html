@@ -1,0 +1,18 @@
+@**<ul class="thumbnails">
+    @for(venue <- venues) {
+    <li class="span3">
+        <div class="thumbnail">
+            <a href="@routes.Venue.details(venue.id.toString())">
+                <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="/assets/img/h-6.jpg">
+            </a>
+            <div class="caption">
+                <h5>@venue.name</h5>
+                <div id="display-address">@venue.address.line1 @venue.address.postCode @venue.address.town</div>
+                <p>@venue.about</p>
+                <p>
+            </div>
+        </div>
+    </li>
+
+    }
+</ul>**@

@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+#
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Return all venues
+GET     /venues                     controllers.Venue.venues(page: Int ?= 1)
+
+# Return venue with id
+GET     /venue/:id                 controllers.Venue.details(id: String)
+
+# Create new venue
+GET     /venues/new                 controllers.Venue.blank()
+
+# Create venue
+POST    /venue/new                   controllers.Venue.submit()
+
+# Edit venue with id
+GET     /venue/:id/edit            controllers.Venue.edit(id: String)
+
+# Delete venue with id
+POST    /venue/:id/delete          controllers.Venue.deleteVenue(id: String)
+
+# get bars
+GET     /venues/listVenues         controllers.Venue.listVenues()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

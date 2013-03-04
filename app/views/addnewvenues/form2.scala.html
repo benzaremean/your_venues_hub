@@ -1,0 +1,105 @@
+@(venueForm: Form[Venues])
+
+@main(nav = "newvenue") {
+
+<form class="navbar-form pull-left form-horizontal" action="@routes.Venue.submit()" method="POST">
+    @if(flash.containsKey("error")){
+    <div class="alert alert-error">
+        @flash.get("error")
+    </div>
+    }
+    <fieldset>
+        <legend>About venue</legend>
+
+        <div class="control-group">
+            <label class="control-label" for="venue-name">Venue name</label>
+            <div class="controls">
+                <input class="input-xxlarge" type="text" id="venue-name" value="@venueForm("name").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="about">Short description</label>
+            <div class="controls">
+                <textarea class="input-xxlarge" rows="5" id="about" value="@venueForm("about").value"></textarea>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Address</legend>
+
+        <div class="control-group">
+            <label class="control-label" for="address-line-1">Address line 1</label>
+            <div class="controls">
+                <input type="text" id="address-line-1" value="@venueForm("address.line1").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="address-line-2">Address line 2</label>
+            <div class="controls">
+                <input type="text" id="address-line-2" value="@venueForm("address.line2").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="address-postcode">Post Code</label>
+            <div class="controls">
+                <input type="text" id="address-postcode" value="@venueForm("address.postCode").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="address-town">Town</label>
+            <div class="controls">
+                <input type="text" id="address-town" value="@venueForm("address.town").value">
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Contact Details</legend>
+        <div class="control-group">
+            <label class="control-label" for="contact-name">Contact Name</label>
+            <div class="controls">
+                <input type="text" id="contact-name" value="@venueForm("contact.contactName").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="contact-email">Email</label>
+            <div class="controls">
+                <input type="text" id="contact-email" value="@venueForm("contact.email").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="contact-telephone">Telephone</label>
+            <div class="controls">
+                <input type="text" id="contact-telephone" value="@venueForm("contact.telephone").value">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="contact-website">Website</label>
+            <div class="controls">
+                <input type="text" id="contact-website" value="@venueForm("contact.website").value">
+            </div>
+        </div>
+    </fieldset>
+
+
+    <div class="form-actions">
+        <label class="checkbox">
+            <input type="checkbox" value="@venueForm("accept").value"> You agree the Terms and conditions
+        </label>
+        <input type="submit" class="btn btn-primary" value="Create">
+        <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+
+
+</form>
+
+}

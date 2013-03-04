@@ -1,0 +1,68 @@
+@(venue: Venues)
+
+@main(nav = "newvenue") {
+<div class="row">
+    <div class="span12">
+
+        <h2>Your Venue:</h2>
+
+        <h6>Name</h6>
+
+        <p>
+            @venue.name
+        </p>
+
+        <h6>About</h6>
+
+        <p>
+            @venue.about
+        </p>
+
+        <h6>Address</h6>
+
+        <p>
+            @venue.address.line1
+        </p>
+
+        <p>
+            @venue.address.line2
+        </p>
+
+        <p>
+            @venue.address.postCode
+        </p>
+
+        <p>
+            @venue.address.town
+        </p>
+
+        <h2>Contact Information:</h2>
+
+        <h6>Contact name</h6>
+
+        <p>
+            @venue.contact.contactName
+        </p>
+
+        <h6>Email</h6>
+
+        <p>
+            @venue.contact.email
+        </p>
+
+        <h6>Telephone</h6>
+
+        <p>
+            @venue.contact.telephone
+        </p>
+
+        <h6>Website</h6>
+
+        <p>
+            @venue.contact.website
+        </p>
+
+    </div>
+</div>
+
+}

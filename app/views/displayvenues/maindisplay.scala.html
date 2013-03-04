@@ -1,0 +1,164 @@
+@(venues: List[Venues])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(nav = "venueslist") {
+<div class="row">
+    <div class="span3 sidebar">
+        <form id="refineYourSearch">
+            <h4>Refine Your Search</h4>
+
+            <a data-toggle="collapse" data-target="#event-type-container">
+                <i class="icon-chevron-right"></i>
+                By Event Type
+            </a>
+            <div id="event-type-container" class="collapse in">
+                <select id="event-type" class="span2">
+                    <option value="">--please select--</option>
+                    <option value="">weddings</option>
+                    <option value="">birthday parties</option>
+                    <option value="">conferences</option>
+                    <option value="">other</option>
+                </select>
+            </div>
+
+            <a data-toggle="collapse" data-target="#distance-from-container">
+                <i class="icon-chevron-right"></i>
+                By Distance
+            </a>
+            <div id="distance-from-container" class="collapse in">
+                <select id="distanceFrom" class="span2">
+                    <option value="distance">--please select--</option>
+                    <option value="">within 5 miles</option>
+                    <option value="">within 10 miles</option>
+                    <option value="">within 15 miles</option>
+                    <option value="">within 20 miles</option>
+                </select>
+            </div>
+
+            <a data-toggle="collapse" data-target="#capacity-container">
+                <i class="icon-chevron-right"></i>
+                By Capacity
+            </a>
+            <div id="capacity-container" class="collapse in">
+                <select id="capacity" class="span2">
+                    <option value="">--please select--</option>
+                    <option value="">under 100</option>
+                    <option value="">100 - 200</option>
+                    <option value="">200 - 300</option>
+                    <option value="">over 300</option>
+                </select>
+            </div>
+
+            <a data-toggle="collapse" data-target="#budget-container">
+                <i class="icon-chevron-right"></i>
+                By Budget
+            </a>
+
+            <div id="budget-container" class="collapse in">
+                <input class="small" type="text" placeholder="min £">
+                <input class="small" type="text" placeholder="max">
+                <span class="label label-warning"><i class="icon-info-sign"></i> based on an 8 hr hire</span>
+            </div>
+
+            <a data-toggle="collapse" data-target="#hire-type-container">
+                <i class="icon-chevron-right"></i>
+                By Hire Type
+            </a>
+            <div id="hire-type-container" class="collapse in">
+                <label class="checkbox inline">
+                    <input type="checkbox">
+                    Wet hire
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox">
+                    Dry hire
+                </label>
+            </div>
+            <hr>
+            <button class="btn btn-block btn-info" type="button ">Filter Results</button>
+        </form>
+    </div>
+
+    <div class="span9">
+        <div class="hero-unit">
+            <h1>Your Events Hub!!!</h1>
+            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        </div>
+
+        @**<div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Hey!!</strong> You can change the results view below
+        </div>**@
+
+        <div id="venue-nos">(@venues.size() venues found)</div>
+
+        <div class="row">
+            <div class="filter-results span6">
+                <select>
+                    <option value="">10</option>
+                    <option value="">20</option>
+                    <option value="">50</option>
+                    <option value="">100</option>
+                </select>
+                <span>results per page</span>
+            </div>
+            <div class="span3 btn-toolbar text-right">
+                <div class="btn-group">
+                    <a class="btn" href="#" data-toggle="tooltip"><i class="icon-list"></i></a>
+                    <a class="btn" href="#"><i class="icon-th"></i></a>
+                    <a class="btn" href="#"><i class="icon-map-marker"></i></a>
+                </div>
+            </div>
+        </div>
+
+        @**for(venue <- venues) {
+
+        <div class="cont">
+            <div class="media">
+                <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
+                    <img class="media-object" src="/assets/img/coffeebeans.jpg">
+                </a>
+                <div class="media-body summary">
+                    <h4 class="media-heading">@venue.name</h4>
+                    <div id="display-address">@venue.address.line1 @venue.address.postCode @venue.address.town</div>
+                    @venue.about
+                </div>
+                <div class="ellipsis"><span>&hellip;</span></div>
+            </div>
+        </div>
+        <hr class="results">
+
+        } **@
+
+        <ul class="thumbnails">
+        @for(venue <- venues) {
+            <li class="span3">
+                <div class="thumbnail">
+                    <a href="@routes.Venue.details(venue.id.toString())">
+                        <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="/assets/img/h-6.jpg">
+                    </a>
+                    <div class="caption">
+                        <h5>@venue.name</h5>
+                        <div id="display-address">@venue.address.postCode, @venue.address.town</div>
+                        <p>@venue.about.</p>
+                    </div>
+                </div>
+            </li>
+
+        }
+        </ul>
+
+
+        @**<div id="mashit" class="pagination pagination-small">**@
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+}

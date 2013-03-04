@@ -1,0 +1,18 @@
+@**for(venue <- venues) {
+
+<div class="cont">
+    <div class="media">
+        <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
+            <img class="media-object" src="/assets/img/coffeebeans.jpg">
+        </a>
+        <div class="media-body summary">
+            <h4 class="media-heading">@venue.name</h4>
+            <div id="display-address">@venue.address.line1 @venue.address.postCode @venue.address.town</div>
+            @venue.about
+        </div>
+        <div class="ellipsis"><span>&hellip;</span></div>
+    </div>
+</div>
+<hr class="results">
+
+}**@
