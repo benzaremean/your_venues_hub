@@ -87,10 +87,10 @@
             <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         </div>
 
-        @**<div class="alert">
+        <div class="alert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Hey!!</strong> You can change the results view below
-        </div>**@
+        </div>
 
         <div id="venue-nos">(@venues.size() venues found)</div>
 
@@ -105,32 +105,32 @@
                 <span>results per page</span>
             </div>
             <div class="span3 btn-toolbar text-right">
-                <div class="btn-group">
-                    <a class="btn" href="#" data-toggle="tooltip"><i class="icon-list"></i></a>
+                <div id="display-views" class="btn-group">
+                    <a class="btn active" href="#" data-toggle="tooltip"><i class="icon-list"></i></a>
                     <a class="btn" href="#"><i class="icon-th"></i></a>
                     <a class="btn" href="#"><i class="icon-map-marker"></i></a>
                 </div>
             </div>
         </div>
 
-        @**for(venue <- venues) {
-
-        <div class="cont">
-            <div class="media">
-                <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
-                    <img class="media-object" src="/assets/img/coffeebeans.jpg">
-                </a>
-                <div class="media-body summary">
-                    <h4 class="media-heading">@venue.name</h4>
-                    <div id="display-address">@venue.address.line1 @venue.address.postCode @venue.address.town</div>
-                    @venue.about
+        <div id="list-view">
+            @for(venue <- venues) {
+            <div class="cont">
+                <div class="media">
+                    <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
+                        <img class="media-object" src="/assets/img/coffeebeans.jpg">
+                    </a>
+                    <div class="media-body summary">
+                        <h4 class="media-heading">@venue.name</h4>
+                        <div id="display-address">@venue.address.line1 @venue.address.postCode @venue.address.town</div>
+                        @venue.about
+                    </div>
+                    <div class="ellipsis"><span>&hellip;</span></div>
                 </div>
-                <div class="ellipsis"><span>&hellip;</span></div>
             </div>
+            <hr class="results">
+            }
         </div>
-        <hr class="results">
-
-        } **@
 
         <ul class="thumbnails">
         @for(venue <- venues) {
@@ -146,7 +146,6 @@
                     </div>
                 </div>
             </li>
-
         }
         </ul>
 
