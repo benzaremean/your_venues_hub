@@ -3,7 +3,7 @@
 	search.value = "";
 } */
 
-var apiKey = '66fbb0e43eb647e7aa930936d2dce669';
+/*var apiKey = '66fbb0e43eb647e7aa930936d2dce669';
 
 var map = L.map('map').setView([51.505, -0.09], 12);
 
@@ -34,13 +34,19 @@ $.get('venues/listVenues', function (data) {
         var marker = L.marker([venue.address.latitude, venue.address.longitude]).addTo(map);
          marker.bindPopup("<b>"+ venue.name +"</b>").openPopup();
     });
-});
+});*/
 
-$().ready( function() {
-    //$(".summary").each(function () {
-    //    $(this).next().toggle(this.scrollHeight > this.offsetHeight);
-    //});
-    $('.dropdown-toggle').dropdown();
+jQuery(document).ready(function($) {
+    function switchView(e) {
+        e.preventDefault();
+        $("#display-views").find("a.active").removeClass("active");
+        $(this).addClass("active");
+        $("#list-view").hide("slow");
+    }
+    $("#display-views").find("a").on('click' , switchView);
+
+
+
 });
 
 
