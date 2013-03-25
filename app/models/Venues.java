@@ -8,35 +8,32 @@ package models;
  * To change this template use File | Settings | File Templates.
  */
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Id;
+import controllers.MorphiaObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.bson.types.ObjectId;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import play.Logger;
 import play.data.validation.Constraints.Required;
 
-import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
-import controllers.MorphiaObject;
-import org.json.simple.JSONValue;
-import org.json.simple.JSONArray;
-
 import javax.validation.Valid;
-import java.net.URI ;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.util.List;
 
 
 @Entity("venues")
@@ -67,12 +64,28 @@ public class Venues {
     //private List<HireType> hireType;
     //public String parkingInfo;
 
-    public static List<Venues> all() {
+    public static VenuesSearchResults all() {
         if (MorphiaObject.datastore != null) {
-            return MorphiaObject.datastore.find(Venues.class).asList();
+            List<Venues> venues = MorphiaObject.datastore.find(Venues.class).asList();
+            VenuesSearchResults venuesSearchResults = new VenuesSearchResults();
+            venuesSearchResults.totalNoOfSearchResults = venues.size();
+            venuesSearchResults.venuesList = venues;
+            return venuesSearchResults;
         } else {
-            return new ArrayList<Venues>();
+            return new VenuesSearchResults();
         }
+    }
+
+    public static VenuesSearchResults venuesByPage(int offset, int limit) {
+        if (MorphiaObject.datastore != null) {
+            VenuesSearchResults venuesSearchResults = new VenuesSearchResults();
+            venuesSearchResults.totalNoOfSearchResults = MorphiaObject.datastore.find(Venues.class).asList().size();
+            venuesSearchResults.venuesList = MorphiaObject.datastore.createQuery(Venues.class).offset(offset).limit(limit).asList();
+            return venuesSearchResults;
+        } else {
+            return new VenuesSearchResults();
+        }
+
     }
 
     public static void create(Venues venue) {
@@ -142,8 +155,8 @@ public class Venues {
             Object obj = JSONValue.parse(json);
             JSONArray _array = (JSONArray)obj;
             Logger.debug("size is " + Integer.toString( _array.size()));
-            for(int i = 0; i < _array.size(); i++) {
-                JSONObject result = (JSONObject)_array.get(i);
+            for (Object a_array : _array) {
+                JSONObject result = (JSONObject) a_array;
                 String latitude = (String) result.get("lat");
                 latValue = Float.parseFloat(latitude);
                 String longitude = (String) result.get("lon");
@@ -158,8 +171,8 @@ public class Venues {
     }
 
     public static Float[] getLongLatGoogle(String address)  {
-        float latValue = 0.0F;
-        float longValue = 0.0F;
+        float latValue;
+        float longValue;
         Geocoder geocoder = new Geocoder();
         GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(address).getGeocoderRequest();
         GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);

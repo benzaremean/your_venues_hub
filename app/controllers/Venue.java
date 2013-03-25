@@ -2,16 +2,13 @@ package controllers;
 
 
 import models.Venues;
+import models.VenuesSearchResults;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.addnewvenues.addvenueform;
 import views.html.addnewvenues.summary;
 import views.html.displayvenues.maindisplay;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static play.libs.Json.toJson;
 
 public class Venue extends Controller {
@@ -27,31 +24,16 @@ public class Venue extends Controller {
         return ok(addvenueform.render(venuesForm));
     }
 
-    public static Result venues(int page) {
-        List<Venues> allResults = Venues.all();
-        int totalNoOfResults = Venues.all().size();
-        int resultsPerPage = 10;
-        int noOfPagesAvailable =  totalNoOfResults / resultsPerPage;
-        int remainder =  totalNoOfResults % resultsPerPage;
-        noOfPagesAvailable = remainder == 0 ? noOfPagesAvailable : noOfPagesAvailable + 1;
+    public static Result venues(int page) { //}, int resultsPerPage) {
 
-        int zeroIndexedPageNo = page - 1;
-        int upTo = page * resultsPerPage > totalNoOfResults ? totalNoOfResults : page * resultsPerPage;
-        int x = zeroIndexedPageNo * resultsPerPage;
-        List<Venues> forView = new ArrayList<Venues>();
-
-
-        for(int i = x; i < upTo; i++) {
-            forView.add(allResults.get(i));
-        }
-
-
-        return ok(maindisplay.render(forView));
+        int offset = page == 1 ? 0 : (page - 1) * 10 ;
+        VenuesSearchResults results = Venues.venuesByPage(offset, 10);
+        return ok(maindisplay.render(results));
     }
 
     public static Result listVenues() {
-        List<Venues> venues = Venues.all();
-        return ok(toJson(venues));
+        VenuesSearchResults venues = Venues.all();
+        return ok(toJson(venues.venuesList));
     }
 
     public static Result details(String id) {
