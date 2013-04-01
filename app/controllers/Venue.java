@@ -26,8 +26,7 @@ public class Venue extends Controller {
 
     public static Result venues(int page) { //}, int resultsPerPage) {
 
-        int offset = page == 1 ? 0 : (page - 1) * 10 ;
-        VenuesSearchResults results = Venues.venuesByPage(offset, 10);
+        VenuesSearchResults results = Venues.venuesByPage(page, 10);
         return ok(maindisplay.render(results));
     }
 

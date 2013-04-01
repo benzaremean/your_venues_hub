@@ -53,10 +53,10 @@ hr.results {
     overflow: hidden;
 }
 
-div.cont:hover {
+/*div.cont:hover {
     border: 2px solid #E0E0E0;
     box-shadow: 0px 0px 10px 7px #FFFFFF;
-}
+}*/
 
 #venue-nos {
     color:#909090;

@@ -31,11 +31,23 @@ $.get('venues/listVenues', function (data) {
     });
 });
 
+function pagination() {
+    var page = $("#searchResults").data("page");
+    $(".pagination li").find("a").each(function() {
+        if ($(this).text() == page) {
+            $(this).closest("li").addClass("active");
+            if ($(this).text() == 1) {
+                $("#prev").remove();
+            }
+        }
+    });
+}
+
 jQuery(document).ready(function($) {
     function switchView(e) {
         e.preventDefault();
-        $("#display-views").find("a.active").removeClass("active").bind("click", switchView);
-        $(this).addClass("active").unbind("click", switchView);
+        $("#display-views").find("a.active").removeClass("active");
+        $(this).addClass("active");
         showView($(this).attr("href"));
     }
 
@@ -43,23 +55,12 @@ jQuery(document).ready(function($) {
         $("#views .views").hide();
         $(active).show();
     }
-    $("#display-views").find("a").on('click' , switchView);
+
+    $("#display-views").delegate("a", "click", switchView);
     $("#display-views a:eq(0)").click();
+
+    pagination();
 });
-
-
-
-
-
-
-//var noOfResults = $("searchResults").data("results");
-//var y = noOfResults % 10 === 0 ? noOfResults / 10 : (noOfResults / 10) + 1;
-//if(y > 1) {
-//    for (var i = 1; i <= y; i++)
-//        '<li><a href>"/venues?page=1"</a></li>'
-//} else {
-//    //do nothing
-//}
 
 
 

@@ -1,13 +1,5 @@
 package models;
 
-/**
- * Created with IntelliJ IDEA.
- * User: IfieB
- * Date: 11/02/2013
- * Time: 22:15
- * To change this template use File | Settings | File Templates.
- */
-
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
@@ -76,11 +68,13 @@ public class Venues {
         }
     }
 
-    public static VenuesSearchResults venuesByPage(int offset, int limit) {
+    public static VenuesSearchResults venuesByPage(int page, int limit) {
         if (MorphiaObject.datastore != null) {
+            int offset = page == 1 ? 0 : (page - 1) * limit ;
             VenuesSearchResults venuesSearchResults = new VenuesSearchResults();
             venuesSearchResults.totalNoOfSearchResults = MorphiaObject.datastore.find(Venues.class).asList().size();
             venuesSearchResults.venuesList = MorphiaObject.datastore.createQuery(Venues.class).offset(offset).limit(limit).asList();
+            venuesSearchResults.page = page;
             return venuesSearchResults;
         } else {
             return new VenuesSearchResults();

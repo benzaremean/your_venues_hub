@@ -3,10 +3,14 @@
 @import helper._
 @import helper.twitterBootstrap._
 
+@noOfPages = @{ if(venues.totalNoOfSearchResults % 10 == 0) venues.totalNoOfSearchResults / 10 else venues.totalNoOfSearchResults / 10 + 1 }
+@prev = @{ venues.page - 1 }
+@next = @{ venues.page + 1 }
+
 @main(nav = "venueslist") {
 <div class="row">
     <div class="span3 sidebar">
-        <form id="refineYourSearch">
+        <form class="well well-small" id="refineYourSearch">
             <h4>Refine Your Search</h4>
 
             <a data-toggle="collapse" data-target="#event-type-container">
@@ -81,7 +85,7 @@
         </form>
     </div>
 
-    <div id="searchResults" class="span9" data-results="@venues.totalNoOfSearchResults">
+    <div id="searchResults" class="span9" data-results="@venues.totalNoOfSearchResults" data-page="@venues.page">
         @**<div class="hero-unit">
             <h1>Your Events Hub!!!</h1>
             <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -97,13 +101,13 @@
         <section id="views">
             <div class="row">
                 <div class="filter-results span6">
-                    <select>
+                    @**<select>
                         <option value="">10</option>
                         <option value="">20</option>
                         <option value="">50</option>
                         <option value="">100</option>
                     </select>
-                    <span>results per page</span>
+                    <span>results per page</span>**@
                 </div>
                 <div class="span3 btn-toolbar text-right">
                     <div id="display-views" class="btn-group">
@@ -137,7 +141,7 @@
             @for(venue <- venues.venuesList) {
                 <li class="span3">
                     <div class="thumbnail">
-                        <span>£200/hr</span>
+                        @**<span>£200/hr</span>**@
                         <a href="@routes.Venue.details(venue.id.toString())">
                             <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>
                         </a>
@@ -155,8 +159,11 @@
 
             <div class="pagination pagination-small">
                 <ul>
-                    <li><a href="/venues?page=1">1</a></li>
-                    <li><a href="/venues?page=2">2</a></li>
+                    <li id="prev"><a href="/venues?page=@prev">Prev</a></li>
+                    @for(pageNo <- 1 to noOfPages) {
+                        <li><a href=@String.format("/venues?page=%s", pageNo.toString)>@pageNo</a></li>
+                    }
+                    <li id="next"><a href="/venues?page=@next">Next</a></li>
                 </ul>
              </div>
         </section>
@@ -164,7 +171,7 @@
 
         @**<div id="mashit" class="pagination pagination-small">**@
 
-        </div>
+        @**</div>**@
 
     </div>
 
