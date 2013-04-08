@@ -32,15 +32,21 @@ $.get('venues/listVenues', function (data) {
 });
 
 function pagination() {
-    var page = $("#searchResults").data("page");
+    var page = $("#searchResults").data("page").toString();
+    var liCount = $(".pagination li").length;
     $(".pagination li").find("a").each(function() {
-        if ($(this).text() == page) {
+        if ($(this).text() === page) {
             $(this).closest("li").addClass("active");
-            if ($(this).text() == 1) {
+            if ($(this).text() === "1") {
                 $("#prev").remove();
+                liCount = liCount - 1;
             }
         }
     });
+    var activeLi = $(".pagination li.active");
+    if($(".pagination li").index(activeLi) === liCount - 2) {
+        $("#next").remove();
+    }
 }
 
 jQuery(document).ready(function($) {
