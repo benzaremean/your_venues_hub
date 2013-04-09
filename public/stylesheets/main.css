@@ -49,7 +49,7 @@ hr.results {
 }*/
 
 .caption p {
-    height: 6em; /* adjust based on line-height * rows desired */
+    height: 2em; /* adjust based on line-height * rows desired */
     overflow: hidden;
 }
 
@@ -70,8 +70,8 @@ div#display-address {
 }
 
 #refineYourSearch {
-     font-size:12px;
-     padding: 10px 12px;
+    font-size:12px;
+    padding: 10px 12px;
      /*background-color:#383838;
      text-align: center;
      color:#FFFFFF;*/
@@ -84,6 +84,7 @@ div#display-address {
 #refineYourSearch a, #refineYourSearch div{
      font-size: 12px;
      padding-left: 10px;
+    color: #333333;
 }
 
 /*#refineYourSearch hr {
@@ -121,7 +122,12 @@ select, .checkbox, .sidebar .btn, .small[placeholder] {
     color: #909090;
 }
 
-.thumbnail span {
+.caption > h5 {
+    /*height: 9em; /* adjust based on line-height * rows desired */
+    overflow: hidden;
+}
+
+/*.thumbnail span {
     background: none repeat scroll 0 0 #F3984D;
     border-bottom-right-radius: 4px;
     color: white;
@@ -131,11 +137,16 @@ select, .checkbox, .sidebar .btn, .small[placeholder] {
     opacity: 21;
     padding: 8px;
     position: absolute;
-}
+}*/
 
 .thumbnail p {
     color: #727272;
     font-size: 11px;
+}
+
+#hire-type-container input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
 }
 
 

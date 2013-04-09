@@ -14,7 +14,7 @@
             <h4>Refine Your Search</h4>
 
             <a data-toggle="collapse" data-target="#event-type-container">
-                <i class="icon-chevron-right"></i>
+                <i class="icon-chevron-down"></i>
                 By Event Type
             </a>
             <div id="event-type-container" class="collapse in">
@@ -28,7 +28,7 @@
             </div>
 
             <a data-toggle="collapse" data-target="#distance-from-container">
-                <i class="icon-chevron-right"></i>
+                <i class="icon-chevron-down"></i>
                 By Distance
             </a>
             <div id="distance-from-container" class="collapse in">
@@ -42,7 +42,7 @@
             </div>
 
             <a data-toggle="collapse" data-target="#capacity-container">
-                <i class="icon-chevron-right"></i>
+                <i class="icon-chevron-down"></i>
                 By Capacity
             </a>
             <div id="capacity-container" class="collapse in">
@@ -56,18 +56,18 @@
             </div>
 
             <a data-toggle="collapse" data-target="#budget-container">
-                <i class="icon-chevron-right"></i>
+                <i class="icon-chevron-down"></i>
                 By Budget
             </a>
 
             <div id="budget-container" class="collapse in">
-                <input class="small" type="text" placeholder="min £">
-                <input class="small" type="text" placeholder="max">
-                <span class="label label-warning"><i class="icon-info-sign"></i> based on an 8 hr hire</span>
+                <input class="input-small" type="text" placeholder="min £">
+                <input class="input-small" type="text" placeholder="max">
+                @**<span class="label label-info"><i class="icon-info-sign"></i> based on an 8 hr hire</span>**@
             </div>
 
             <a data-toggle="collapse" data-target="#hire-type-container">
-                <i class="icon-chevron-right"></i>
+                <i class="icon-chevron-down"></i>
                 By Hire Type
             </a>
             <div id="hire-type-container" class="collapse in">
@@ -124,7 +124,8 @@
                 <div class="cont">
                     <div class="media">
                         <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
-                            <img class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>
+                            @**<img class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>**@
+                            <img class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src="/assets/img/h-4.jpg">
                         </a>
                         <div class="media-body summary">
                             <h4 class="media-heading">@venue.name</h4>
@@ -143,12 +144,19 @@
                     <div class="thumbnail">
                         @**<span>£200/hr</span>**@
                         <a href="@routes.Venue.details(venue.id.toString())">
-                            <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>
+                            @**<img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>**@
+                            <img alt="300x200" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="/assets/img/h-4.jpg">
                         </a>
                         <div class="caption">
                             <h5>@venue.name</h5>
                             <div id="display-address">@venue.address.postCode, @venue.address.town</div>
-                            <p>@venue.about.</p>
+                            <p>
+                                <span class="srCapacity1">Dinner</span>
+                                <span class="srCapacity2">50-120</span>
+                                |
+                                <span class="srCapacity1">Buffet/Reception</span>
+                                <span class="srCapacity2">80-500</span>
+                            </p>
                         </div>
                     </div>
                 </li>
@@ -159,11 +167,11 @@
 
             <div class="pagination pagination-small">
                 <ul>
-                    <li id="prev"><a href="/venues?page=@prev">Prev</a></li>
+                    <li id="prev"><a href="/venues?page=@prev">&laquo;</a></li>
                     @for(pageNo <- 1 to noOfPages) {
                         <li><a href=@String.format("/venues?page=%s", pageNo.toString)>@pageNo</a></li>
                     }
-                    <li id="next"><a href="/venues?page=@next">Next</a></li>
+                    <li id="next"><a href="/venues?page=@next">&raquo;</a></li>
                 </ul>
              </div>
         </section>
