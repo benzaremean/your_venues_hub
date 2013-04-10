@@ -3,7 +3,7 @@
 @main(nav = "newvenue") {
 <div class="row">
     <div class="span9">
-        <div id="page-display"  data-longitude=@venue.address.longitude data-latitude=@venue.address.latitude>
+        <div id="page-display"  data-longitude="@venue.address.longitude" data-latitude="@venue.address.latitude">
 
             <h3>@venue.name</h3>
             <div id="myCarousel" class="carousel slide">
@@ -40,7 +40,7 @@
                 @venue.contact.contactName <br>
                 @venue.contact.email <br>
                 @venue.contact.telephone <br>
-                @venue.contact.website <br>
+                <a href="http://@venue.contact.website">@venue.contact.website</a> <br>
             </address>
 
             <h5>Address</h5>
@@ -51,6 +51,8 @@
             </address>
             <h5>Location</h5>
             <div id="map" style="width:530px;height:251px"></div>
+
+            <div class="text-right"><button class="btn btn-info" onclick="history.go(-1);" href="#">back to venue listing</button></div>
         </div>
 
     </div>
