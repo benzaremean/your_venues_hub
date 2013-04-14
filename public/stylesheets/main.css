@@ -7,8 +7,8 @@
 
 body {
     /*font-family: 'Varela Round',sans-serif;*/
-    padding-top: 60px;  /* 60px to make the container go all the way to the bottom of the topbar */
-    padding-bottom: 40px;
+    padding-top: 42px;  /* 60px to make the container go all the way to the bottom of the topbar */
+    padding-bottom: 42px;
 }
 
 #map {
@@ -148,5 +148,21 @@ select, .checkbox, .sidebar .btn, .small[placeholder] {
     width: 16px;
     height: 16px;
 }
+
+#search {
+    /*text-align: center; */
+}
+
+#freetext-search {
+    margin-bottom: 0;
+}
+
+/*#address {*/
+    /*color: #00AEEF;*/
+/*}*/
+
+/*#page-display h3 {*/
+    /*padding-bottom: 0;*/
+/*}*/
 
 

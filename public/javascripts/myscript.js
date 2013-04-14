@@ -100,6 +100,33 @@ function setMapForView() {
 
 }
 
+function removeAlert() {
+    $(".alert").delegate("button", "click", function() {
+        sessionStorage.setItem("alert-dismissed", "true");
+    });
+
+}
+
+function selectThings() {
+    $(".cont").delegate("input[type='checkbox']", "click", function() {
+        $(this).closest(".cont").toggleClass("selected");
+    });
+    $("#thumbnails-view").delegate("input[type='checkbox']", "click", function() {
+        $(this).closest("li").toggleClass("selected");
+    });
+}
+
+function compare(ev) {
+    ev.preventDefault();
+    var selectedForComparison = $(".selected");
+    var buildComparators = "";
+    $.each(selectedForComparison, function(index, value){
+        buildComparators += value.getAttribute("id") + "%";
+    });
+    //alert(buildComparators);
+    $('#compare-form').attr('action', '/venues/compare?cmp=' + buildComparators);
+}
+
 jQuery(document).ready(function($) {
     function switchView(e) {
         e.preventDefault();
@@ -114,17 +141,30 @@ jQuery(document).ready(function($) {
         sessionStorage.setItem("view", active);
     }
 
+    setMapForView();
+
+    removeAlert();
+    if(sessionStorage.getItem("alert-dismissed") === "true") {
+        $(".alert").hide();
+    }
+
     $("#display-views").delegate("a", "click", switchView);
     if(sessionStorage.getItem("view")) {
         $('#display-views a[href="' + sessionStorage.getItem("view") + '"]').click();
     } else {
         $("#display-views a:eq(0)").click();
     }
+
     pagination();
 
     pinLocationOnResultsPage();
 
-    setMapForView();
+    selectThings();
+
+    $("#compare-form").delegate("button", "click", compare);
+
+
+
 
 
 });

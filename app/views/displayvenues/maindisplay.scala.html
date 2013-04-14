@@ -63,7 +63,6 @@
             <div id="budget-container" class="collapse in">
                 <input class="input-small" type="text" placeholder="min £">
                 <input class="input-small" type="text" placeholder="max">
-                @**<span class="label label-info"><i class="icon-info-sign"></i> based on an 8 hr hire</span>**@
             </div>
 
             <a data-toggle="collapse" data-target="#hire-type-container">
@@ -81,7 +80,7 @@
                 </label>
             </div>
             <hr>
-            <button class="btn btn-block btn-info" type="button ">Filter Results</button>
+            <button class="btn btn-block" type="button ">Filter Results</button>
         </form>
     </div>
 
@@ -108,6 +107,9 @@
                         <option value="">100</option>
                     </select>
                     <span>results per page</span>**@
+                    <form id="compare-form" action="#" method="get">
+                        <button class="btn btn-small">Compare</button>
+                    </form>
                 </div>
                 <div class="span3 btn-toolbar text-right">
                     <div id="display-views" class="btn-group">
@@ -121,7 +123,7 @@
 
             <div id="list-view" class="views">
                 @for(venue <- venues.venuesList) {
-                <div class="cont">
+                <div class="cont" id="@venue.id">
                     <div class="media">
                         <a class="pull-left" href="@routes.Venue.details(venue.id.toString())">
                             <img class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>
@@ -133,6 +135,11 @@
                             <p>@venue.about</p>
                         </div>
                     </div>
+
+                    <label class="controls checkbox inline">
+                        <input type="checkbox" value="@venue.id">Compare
+                    </label>
+
                 </div>
                 <hr class="results">
                 }
@@ -140,7 +147,7 @@
 
             <ul id="thumbnails-view" class="thumbnails views">
             @for(venue <- venues.venuesList) {
-                <li class="span3">
+                <li class="span3" id="@venue.id">
                     <div class="thumbnail">
                         @**<span>£200/hr</span>**@
                         <a href="@routes.Venue.details(venue.id.toString())">
@@ -158,6 +165,9 @@
                                 <span class="srCapacity2">80-500</span>
                             </p>
                         </div>
+                        <label class="checkbox inline">
+                            <input type="checkbox" value="@venue.id">Compare
+                        </label>
                     </div>
                 </li>
             }
@@ -165,6 +175,7 @@
 
             <div id="map" class="views"></div>
 
+            <br>
             <div class="pagination pagination-small">
                 <ul>
                     <li id="prev"><a href="/venues?page=@prev">&laquo;</a></li>
@@ -175,11 +186,6 @@
                 </ul>
              </div>
         </section>
-
-
-        @**<div id="mashit" class="pagination pagination-small">**@
-
-        @**</div>**@
 
     </div>
 
