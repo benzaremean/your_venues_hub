@@ -26,6 +26,9 @@ POST    /venue/:id/delete          controllers.Venue.deleteVenue(id: String)
 # get bars
 GET     /venues/listVenues         controllers.Venue.listVenues()
 
+# compare venues
+GET     /venues/compare/:ids         controllers.Venue.compareVenues(ids: String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

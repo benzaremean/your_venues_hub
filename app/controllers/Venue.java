@@ -8,7 +8,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.addnewvenues.addvenueform;
 import views.html.addnewvenues.summary;
+import views.html.compare.comparison;
 import views.html.displayvenues.maindisplay;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static play.libs.Json.toJson;
 
 public class Venue extends Controller {
@@ -67,6 +72,15 @@ public class Venue extends Controller {
     public static Result deleteVenue(String id) {
         Venues.delete(id);
         return TODO; //return redirect(routes.Application.venues());
+    }
+
+    public static Result compareVenues(String ids) {
+        String[] splitIds = ids.split("-");
+        List<Venues> venues = new ArrayList<>();
+        for(String id : splitIds) {
+            venues.add(Venues.getVenue(id));
+        }
+        return ok(comparison.render(venues));
     }
 }
 

@@ -1,0 +1,66 @@
+@(venues: List[Venues])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(nav = "") {
+<div class="row">
+    <div class="span12">
+        <table class="table .table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                    @for(venue <- venues) {
+                        <th>@venue.name</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    @for(venue <- venues) {
+                        <td>
+                            <a href="@routes.Venue.details(venue.id.toString())">
+                                <img class="media-object" data-src="holder.js/100x100" style="width: 100px; height: 100px;" src=@String.format("/assets/img/display/%s.jpg", venue.id)>
+                            </a>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    @for(venue <- venues) {
+                        <td>@venue.address.line1</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Website</td>
+                    @for(venue <- venues) {
+                    <td>@venue.contact.website</td>
+                    }
+                </tr>
+                <tr>
+                    <td>About</td>
+                    @for(venue <- venues) {
+                    <td>@venue.about</td>
+                    }
+                </tr>
+            @**<tr>
+                <td>2</td>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>**@
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+}

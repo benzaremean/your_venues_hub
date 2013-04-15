@@ -94,7 +94,8 @@ function setMapForView() {
         $.each(data, function (index, venue) {
             $("#venues-list").append('<li>' + venue.name + '</li>');
             var marker = L.marker([venue.address.latitude, venue.address.longitude]).addTo(map);
-             marker.bindPopup("<b>"+ venue.name +"</b>").openPopup();
+            var href = "/venue/" + venue.venueId.toString();
+             marker.bindPopup("<a href='" + href + "'>"+ venue.name +"</a>");//.openPopup();
         });
     });
 
@@ -107,41 +108,37 @@ function removeAlert() {
 
 }
 
-function selectThings() {
-    $(".cont").delegate("input[type='checkbox']", "click", function() {
-        $(this).closest(".cont").toggleClass("selected");
-    });
-    $("#thumbnails-view").delegate("input[type='checkbox']", "click", function() {
-        $(this).closest("li").toggleClass("selected");
-    });
-}
-
-function compare(ev) {
-    ev.preventDefault();
-    var selectedForComparison = $(".selected");
+function compare() {
+    var selectedForComparison = $("input[type='checkbox']:checked");
     var buildComparators = "";
     $.each(selectedForComparison, function(index, value){
-        buildComparators += value.getAttribute("id") + "%";
+        buildComparators += value.getAttribute("value") + "-";
     });
-    //alert(buildComparators);
-    $('#compare-form').attr('action', '/venues/compare?cmp=' + buildComparators);
+    $('#compare-form').attr('action', '/venues/compare/' + buildComparators);
+}
+
+function switchView(e) {
+    e.preventDefault();
+    $("#display-views").find("a.active").removeClass("active");
+    $(this).addClass("active");
+    showView($(this).attr("href"));
+}
+
+function showView(active) {
+    $("#views .views").hide();
+    $(active).show();
+    sessionStorage.setItem("view", active);
 }
 
 jQuery(document).ready(function($) {
-    function switchView(e) {
-        e.preventDefault();
-        $("#display-views").find("a.active").removeClass("active");
-        $(this).addClass("active");
-        showView($(this).attr("href"));
-    }
-
-    function showView(active) {
-        $("#views .views").hide();
-        $(active).show();
-        sessionStorage.setItem("view", active);
-    }
+    //alert($("#searchResults").data("results"));
 
     setMapForView();
+
+    if($("#searchResults").data("results") === 0) {
+        $("#compare-form,#display-views,.alert,.pagination").remove();
+        return;
+    }
 
     removeAlert();
     if(sessionStorage.getItem("alert-dismissed") === "true") {
@@ -159,7 +156,7 @@ jQuery(document).ready(function($) {
 
     pinLocationOnResultsPage();
 
-    selectThings();
+    //selectThings();
 
     $("#compare-form").delegate("button", "click", compare);
 

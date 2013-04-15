@@ -5,9 +5,12 @@ import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.morphia.Key;
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
+import com.google.code.morphia.query.Query;
+import com.google.code.morphia.query.UpdateOperations;
 import controllers.MorphiaObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -87,8 +90,10 @@ public class Venues {
         Float[] latlog = getLongLatGoogle(_address);
         venue.address.latitude = latlog[0];
         venue.address.longitude = latlog[1];
-        //venue.venueId = venue.id.toStringMongod();
-        MorphiaObject.datastore.save(venue);
+        Key<Venues> save = MorphiaObject.datastore.save(venue);
+        Query<Venues> query = MorphiaObject.datastore.createQuery(Venues.class).field("_id").equal(save.getId());
+        UpdateOperations<Venues> ops = MorphiaObject.datastore.createUpdateOperations(Venues.class).set("venueId", save.getId().toString());
+        MorphiaObject.datastore.update(query, ops);
     }
 
     public static void delete(String idToDelete) {
