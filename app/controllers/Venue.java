@@ -76,7 +76,7 @@ public class Venue extends Controller {
 
     public static Result compareVenues(String ids) {
         String[] splitIds = ids.split("-");
-        List<Venues> venues = new ArrayList<>();
+        List<Venues> venues = new ArrayList<Venues>();
         for(String id : splitIds) {
             venues.add(Venues.getVenue(id));
         }
