@@ -94,7 +94,7 @@ function setMapForView() {
         $.each(data, function (index, venue) {
             $("#venues-list").append('<li>' + venue.name + '</li>');
             var marker = L.marker([venue.address.latitude, venue.address.longitude]).addTo(map);
-            var href = "/venue/" + venue.venueId.toString();
+            var href = "/venue/" + venue.id.toString();
              marker.bindPopup("<a href='" + href + "'>"+ venue.name +"</a>");//.openPopup();
         });
     });
@@ -110,6 +110,10 @@ function removeAlert() {
 
 function compare() {
     var selectedForComparison = $("input[type='checkbox']:checked");
+    if(selectedForComparison.length < 2) {
+        alert("You need to select at least two venues and up to 5 to do comparison");
+        return;
+    }
     var buildComparators = "";
     $.each(selectedForComparison, function(index, value){
         buildComparators += value.getAttribute("value") + "-";

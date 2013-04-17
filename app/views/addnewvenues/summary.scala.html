@@ -4,7 +4,7 @@
 <div class="row">
     <div class="span9">
         <div id="page-display"  data-longitude="@venue.address.longitude" data-latitude="@venue.address.latitude">
-            <button id="back-to" class="btn btn-mini btn-link" onclick="history.go(-1);">&laquo; Back to Search Results</button>
+            <button id="back-to" class="btn btn-mini btn-link" onclick="history.go(-1);">&laquo; Back</button>
             <h3>@venue.name</h3>
             <p id="address">@venue.address.line1.trim, @if(venue.address.line2 != ""){@venue.address.line2,} @venue.address.town. @venue.address.postCode</p>
             <div id="myCarousel" class="carousel slide">

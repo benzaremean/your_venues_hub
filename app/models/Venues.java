@@ -35,7 +35,7 @@ import java.util.List;
 public class Venues {
 
     @Id
-    public ObjectId id;
+    public String id;
     @Required
     public String name;
     @Required
@@ -50,7 +50,7 @@ public class Venues {
     @Embedded
     public Contact contact;
 
-    public String venueId;
+    //public String venueId;
 
     //@Required
     //@Embedded
@@ -91,9 +91,9 @@ public class Venues {
         venue.address.latitude = latlog[0];
         venue.address.longitude = latlog[1];
         Key<Venues> save = MorphiaObject.datastore.save(venue);
-        Query<Venues> query = MorphiaObject.datastore.createQuery(Venues.class).field("_id").equal(save.getId());
-        UpdateOperations<Venues> ops = MorphiaObject.datastore.createUpdateOperations(Venues.class).set("venueId", save.getId().toString());
-        MorphiaObject.datastore.update(query, ops);
+        //Query<Venues> query = MorphiaObject.datastore.createQuery(Venues.class).field("_id").equal(save.getId());
+        //UpdateOperations<Venues> ops = MorphiaObject.datastore.createUpdateOperations(Venues.class).set("venueId", save.getId().toString());
+        //MorphiaObject.datastore.update(query, ops);
     }
 
     public static void delete(String idToDelete) {
